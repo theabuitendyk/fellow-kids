@@ -53,7 +53,7 @@ export default class ConvoList extends React.Component {
 
           <View>
             {convos.map((convo) =>
-              <ConvoItem key={convo.id} convo={convo}></ConvoItem>
+              <ConvoListItem key={convo.id} convo={convo}></ConvoListItem>
               )
             }
           </View>
