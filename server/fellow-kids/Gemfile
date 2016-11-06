@@ -17,6 +17,10 @@ gem 'bcrypt', '~> 3.1.7'
 gem 'jwt'
 gem 'simple_command'
 
+gem 'sidekiq'
+gem 'fast_blank'
+gem 'oj'
+
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
 
@@ -32,6 +36,8 @@ group :development, :test do
 
   # Use Factory Girl for generating random test data
   gem 'factory_girl_rails'
+
+  gem 'dotenv-rails', '~> 2.0'
 end
 
 group :development do
