@@ -1,2 +1,3 @@
 .idea/*
 /server/fellow-kids/.env.local
+/server/fellow-kids/pubnub.log
