@@ -26,7 +26,7 @@ export class Message extends React.Component {
 
     let translation;
 
-    if (this.props.user.type == 'youth') {
+    if (this.props.user.type === 'youth') {
       translation = this.props.message.youth_translation;
     } else {
       translation = this.props.message.old_translation;

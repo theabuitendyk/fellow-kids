@@ -13,6 +13,10 @@ import {
 import { ConvoListItem } from '../components/ConvoListItem';
 
 export default class ConvoList extends React.Component {
+  componentWillMount() {
+    this.setState({ convos: this._fetchConvos })
+  }
+
   static route = {
     navigationBar: {
       visible: false,
@@ -63,6 +67,21 @@ export default class ConvoList extends React.Component {
         </ScrollView>
       </View>
     );
+  }
+
+  _fetchConvos = () => {
+    return fetch('localhost:3000/conversations', {
+      body: JSON.stringify({
+        user_id: this.props.user.id,
+      })
+    })
+    .then((response) => response.json())
+    .then((responseJson) => {
+      return this.setState({ convos: responseJson.conversations });
+    })
+    .catch((error) => {
+      console.error(error);
+    });
   }
 }
 
