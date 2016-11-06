@@ -30,6 +30,9 @@ class AppContainer extends React.Component {
   async _loadAssetsAsync() {
     try {
       await cacheAssetsAsync({
+        images: [
+          require('./assets/images/fellow-kids.png'),
+        ],
         fonts: [
           {'space-mono': require('./assets/fonts/SpaceMono-Regular.ttf')},
           {'muli': require('./assets/fonts/Muli-Regular.ttf')},

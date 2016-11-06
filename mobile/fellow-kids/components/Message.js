@@ -20,9 +20,11 @@ export class Message extends React.Component {
     if (this.props.user.id == this.props.message.user_id) {
       messageStyles = styles.myMessage;
       textStyles = styles.myText;
+      timestampStyles = styles.myTimestamp;
     } else {
       messageStyles = styles.othersMessage;
       textStyles = styles.othersText;
+      timestampStyles = styles.othersTimestamp;
     }
 
     let translation;
@@ -40,8 +42,8 @@ export class Message extends React.Component {
             {translation}
           </StyledText>
         </View>
-        <StyledText style={styles.timestampStyles}>
-          {moment(this.props.message.sent_time).format("MMM D HH:mmA")}
+        <StyledText style={timestampStyles}>
+          {this.props.message.username} at {moment(this.props.message.sent_time).format("h:mmA")}
         </StyledText>
       </View>
     );
@@ -79,7 +81,16 @@ const styles = StyleSheet.create({
     shadowRadius: 2,
     shadowOffset: { width: 1, height: 2 },
   },
-  timestampStyles: {
+  myTimestamp: {
+    flex: 1,
+    flexDirection: 'row',
+    color: '#616161',
+    fontSize: 10,
+    alignItems: 'flex-end',
+    marginBottom: 15,
+    textAlign: 'right',
+  },
+  othersTimestamp: {
     flex: 1,
     flexDirection: 'row',
     color: '#616161',

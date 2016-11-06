@@ -14,8 +14,9 @@ import {
 import { Message } from '../components/Message';
 
 export default class Convo extends React.Component {
+  state = { messages: [] }
   componentWillMount() {
-    this.setState({ messages: this._fetchMessages })
+    this._fetchMessages()
   }
 
   static route = {
@@ -24,40 +25,19 @@ export default class Convo extends React.Component {
       backgroundColor: '#12F3A3',
       tintColor: '#FFF',
       title(params) {
-        return params.name;
-      },
-    },
-    navigationProvider: {
-      visible: false,
-      backgroundColor: '#12F3A3',
-      tintColor: '#FFF',
-      title(params) {
-        return params.name;
+        return params.names;
       },
     },
   }
 
   render() {
-    const messages = [
-      { id: 1,
-        user_id: 1,
-        youth_translation: 'Hey!',
-        old_translation: 'Hello Dear :)',
-        sent_time: "2016-11-04T10:21:53.330-07:00"
-      },
-      { id: 2,
-        user_id: 2,
-        youth_translation: "What's up?!",
-        old_translation: "How are you?",
-        sent_time: "2016-11-04T10:27:53.330-07:00"
-      },
-      { id: 3,
-        user_id: 1,
-        youth_translation: 'Hello!',
-        old_translation: 'Hi, again.',
-        sent_time: "2016-11-04T10:31:53.330-07:00"
-      }
-    ]
+    let messages;
+    if (this.state.messages && this.state.messages.length > 0) {
+      messages = this.state.messages
+    } else {
+      messages = []
+    }
+
     return (
       <View style={styles.container}>
         <View style={{flex: 10, flexDirection: 'row'}}>
@@ -86,14 +66,19 @@ export default class Convo extends React.Component {
   }
 
   _fetchMessages = () => {
-    return fetch('localhost:3000/messages', {
-      body: JSON.stringify({
-        conversation_id: this.props.convoId,
-      })
+    fetch('http://localhost:3000/messages', {
+      method: 'GET',
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json',
+        'username': 'thea',
+        'conversation_id': this.props.convoId,
+      },
     })
     .then((response) => response.json())
     .then((responseJson) => {
-      return this.setState(messages: responseJson.messages);
+      console.log('WTF', responseJson)
+      return this.setState({ messages: responseJson });
     })
     .catch((error) => {
       console.error(error);
@@ -109,7 +94,7 @@ export default class Convo extends React.Component {
       originalType = 1
     }
 
-    return fetch('localhost:3000/messages', {
+    return fetch('http://localhost:3000/messages', {
       method: 'POST',
       body: JSON.stringify({
         message: {

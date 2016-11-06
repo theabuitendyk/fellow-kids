@@ -14,25 +14,41 @@ import {
 import { withNavigation } from '@exponent/ex-navigation';
 
 import Router from '../navigation/Router';
+import moment from 'moment';
 
 @withNavigation
 export class ConvoListItem extends React.Component {
+  state = {}
+  componentWillMount() {
+    let usernames = this.props.convo.users.map((user) => user.username)
+    usernames = usernames.filter((i) => i !== this.props.user.username).join(', ')
+    this.setState({usernames: usernames})
+  }
+
   render() {
+    let translation;
+
+    if (this.props.user.type === 'youth') {
+      translation = this.props.convo.last_message.youth_translation;
+    } else {
+      translation = this.props.convo.last_message.old_translation;
+    }
+
     return (
       <TouchableHighlight onPress={this._goToConvo}>
         <View style={styles.convoItemContainer}>
           <View style={styles.previewColumn}>
             <Text style={styles.names}>
-              {this.props.convo.name}
+              {this.state.usernames}
             </Text>
             <Text style={styles.lastMessage}>
-              {this.props.convo.lastMessage}
+              {translation}
             </Text>
           </View>
           <View style={styles.timeColumn}>
             <View style={styles.timeRow}>
               <Text style={styles.timeText}>
-                {this.props.convo.time}
+                {moment(this.props.convo.last_message.created_at).format("H:mmA")}
               </Text>
             </View>
           </View>
@@ -48,7 +64,7 @@ export class ConvoListItem extends React.Component {
         {
           convoId: this.props.convo.id,
           user: this.props.user,
-          name: this.props.convo.name,
+          names: this.state.usernames,
         }
       )
     );
