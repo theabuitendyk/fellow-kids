@@ -22,7 +22,7 @@ class Message < ApplicationRecord
   def translate_old!
     return if self.old_translation.blank?
 
-    self.youth_translation = Translator.old_to_youth.translate(self.old_translation.dup)
+    self.youth_translation = Translator.old_to_youth.translate(self.old_translation.dup).downcase
   end
 
   def translate_youth!

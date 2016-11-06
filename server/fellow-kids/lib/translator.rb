@@ -16,10 +16,20 @@ class Translator
     return str if @replacement_data.empty?
 
     @replacement_data.each_pair do |key, value|
-      str.gsub!(/\b#{key}\b/, value)
+      str.gsub!(/\b#{key}\b/i, value)
     end
 
     str
+  end
+
+  def in_need_of_translation
+    array = []
+
+    @replacement_data.each_pair do |key, value|
+      array << key if key == value
+    end
+
+    array
   end
 
   class << self
