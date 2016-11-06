@@ -32,4 +32,9 @@ class Message < ApplicationRecord
     end
   end
 
+  def translate
+    translate!
+    save
+  end
+
 end
