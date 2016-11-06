@@ -1,33 +1,56 @@
 import React from 'react';
+
 import {
   Text,
   View,
   StyleSheet,
+  TouchableHighlight,
 } from 'react-native';
+
 import {
   Font,
 } from 'exponent';
 
+import { withNavigation } from '@exponent/ex-navigation';
+
+import Router from '../navigation/Router';
+
+@withNavigation
 export class ConvoListItem extends React.Component {
   render() {
     return (
-      <View style={styles.convoItemContainer}>
-        <View style={styles.previewColumn}>
-          <Text style={styles.names}>
-            {this.props.convo.name}
-          </Text>
-          <Text style={styles.lastMessage}>
-            {this.props.convo.lastMessage}
-          </Text>
-        </View>
-        <View style={styles.timeColumn}>
-          <View style={styles.timeRow}>
-            <Text style={styles.timeText}>
-              {this.props.convo.time}
+      <TouchableHighlight onPress={this._goToConvo}>
+        <View style={styles.convoItemContainer}>
+          <View style={styles.previewColumn}>
+            <Text style={styles.names}>
+              {this.props.convo.name}
+            </Text>
+            <Text style={styles.lastMessage}>
+              {this.props.convo.lastMessage}
             </Text>
           </View>
+          <View style={styles.timeColumn}>
+            <View style={styles.timeRow}>
+              <Text style={styles.timeText}>
+                {this.props.convo.time}
+              </Text>
+            </View>
+          </View>
         </View>
-      </View>
+      </TouchableHighlight>
+    );
+  }
+
+  _goToConvo = () => {
+    this.props.navigator.push(
+      Router.getRoute(
+        'convo',
+        {
+          convoId: this.props.convo.id,
+          user: this.props.user,
+          name: this.props.convo.name,
+        }
+      )
     );
   }
 }

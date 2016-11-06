@@ -32,6 +32,8 @@ class AppContainer extends React.Component {
       await cacheAssetsAsync({
         fonts: [
           {'space-mono': require('./assets/fonts/SpaceMono-Regular.ttf')},
+          {'muli': require('./assets/fonts/Muli-Regular.ttf')},
+          {'hind': require('./assets/fonts/Hind-Regular.ttf')},
         ],
       });
     } catch(e) {
@@ -51,8 +53,7 @@ class AppContainer extends React.Component {
           <NavigationProvider router={Router}>
             <StackNavigation
               id="root"
-              initialRoute={initialRoute}
-            />
+              initialRoute={initialRoute} />
           </NavigationProvider>
 
           {Platform.OS === 'ios' && <StatusBar barStyle="default" />}
