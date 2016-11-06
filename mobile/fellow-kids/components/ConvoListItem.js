@@ -45,7 +45,11 @@ export class ConvoListItem extends React.Component {
     this.props.navigator.push(
       Router.getRoute(
         'convo',
-        { convoId: this.props.convo.id, user: this.props.user }
+        {
+          convoId: this.props.convo.id,
+          user: this.props.user,
+          name: this.props.convo.name,
+        }
       )
     );
   }

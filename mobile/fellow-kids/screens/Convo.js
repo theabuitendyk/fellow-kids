@@ -15,7 +15,10 @@ import { Message } from '../components/Message';
 export default class Convo extends React.Component {
   static route = {
     navigationBar: {
-      visible: false,
+      visible: true,
+      title(params) {
+        return params.name;
+      },
     },
   }
 

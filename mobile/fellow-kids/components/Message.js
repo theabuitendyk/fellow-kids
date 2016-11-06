@@ -1,7 +1,6 @@
 import React from 'react';
 
 import {
-  Text,
   View,
   StyleSheet,
 } from 'react-native';
@@ -9,6 +8,8 @@ import {
 import {
   Font,
 } from 'exponent';
+
+import { StyledText } from '../components/StyledText';
 
 export class Message extends React.Component {
   render() {
@@ -33,9 +34,9 @@ export class Message extends React.Component {
 
     return (
       <View style={messageStyles}>
-        <Text style={textStyles}>
+        <StyledText style={textStyles}>
           {translation}
-        </Text>
+        </StyledText>
       </View>
     );
   }
