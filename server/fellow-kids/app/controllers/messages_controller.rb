@@ -12,7 +12,7 @@ class MessagesController < ApplicationController
   end
 
   def create
-    @message = Message.create(message_params)
+    @message = create_message
     render json: @message, serializer: message_serializer, root: "message"
   end
 
@@ -22,7 +22,13 @@ class MessagesController < ApplicationController
     MessageSerializer
   end
 
-  def message_params
-    params.require(:message).permit(:user_id, :conversation_id, :original_type, :old_translation, :youth_translation)
+  def create_message
+    Message.create(
+      user: current_user,
+      conversation_id: request.headers["HTTP_CONVERSATION_ID"],
+      original_type: request.headers["HTTP_ORIGINAL_TYPE"],
+      youth_translation: request.headers["HTTP_YOUTH_TRANSLATION"],
+      old_translation: request.headers["HTTP_OLD_TRANSLATION"]
+    )
   end
 end

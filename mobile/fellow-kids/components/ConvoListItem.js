@@ -12,6 +12,7 @@ import {
 } from 'exponent';
 
 import { withNavigation } from '@exponent/ex-navigation';
+import { StyledText } from '../components/StyledText';
 
 import Router from '../navigation/Router';
 import moment from 'moment';
@@ -38,18 +39,18 @@ export class ConvoListItem extends React.Component {
       <TouchableHighlight onPress={this._goToConvo}>
         <View style={styles.convoItemContainer}>
           <View style={styles.previewColumn}>
-            <Text style={styles.names}>
+            <StyledText style={styles.names}>
               {this.state.usernames}
-            </Text>
-            <Text style={styles.lastMessage}>
+            </StyledText>
+            <StyledText style={styles.lastMessage}>
               {translation}
-            </Text>
+            </StyledText>
           </View>
           <View style={styles.timeColumn}>
             <View style={styles.timeRow}>
-              <Text style={styles.timeText}>
+              <StyledText style={styles.timeText}>
                 {moment(this.props.convo.last_message.created_at).format("H:mmA")}
-              </Text>
+              </StyledText>
             </View>
           </View>
         </View>
@@ -89,6 +90,7 @@ const styles = StyleSheet.create({
   },
   names: {
     fontWeight: 'bold',
+    fontSize: 16,
   },
   lastMessage: {
     color: '#616161',
