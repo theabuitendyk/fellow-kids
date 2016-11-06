@@ -11,10 +11,12 @@ import {
 } from 'react-native';
 
 import { ConvoListItem } from '../components/ConvoListItem';
+import config from '../config';
 
 export default class ConvoList extends React.Component {
   state = {}
   componentWillMount() {
+    
     this._fetchConvos()
   }
 
