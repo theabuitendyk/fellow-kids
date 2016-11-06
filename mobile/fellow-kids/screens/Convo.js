@@ -16,11 +16,17 @@ import {
 } from 'react-native';
 
 import { Message } from '../components/Message';
+import { TimerMixin } from 'react-timer-mixin';
 
 export default class Convo extends React.Component {
+  mixins: [TimerMixin]
+
   state = { messages: [], newMsg: '' }
+
   componentWillMount() {
-    this._fetchMessages()
+    setTimeout(() => {
+      this._fetchMessages();
+    }, 1000) ;
   }
 
   static route = {
@@ -132,6 +138,7 @@ export default class Convo extends React.Component {
       console.error(error);
     });
   }
+
 }
 
 const styles = StyleSheet.create({
