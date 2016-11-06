@@ -1,6 +1,9 @@
 import React from 'react';
 import {
   Image,
+  KeyboardAvoidingView,
+  Modal,
+  SegmentedControlIOS,
   Linking,
   Platform,
   ScrollView,
@@ -8,6 +11,7 @@ import {
   Text,
   TextInput,
   TouchableOpacity,
+  TouchableHighlight,
   View,
 } from 'react-native';
 
@@ -17,7 +21,8 @@ import { TimerMixin } from 'react-timer-mixin';
 export default class Convo extends React.Component {
   mixins: [TimerMixin]
 
-  state = { messages: [] }
+  state = { messages: [], newMsg: '' }
+
   componentWillMount() {
     setTimeout(() => {
       this._fetchMessages();
@@ -60,18 +65,23 @@ export default class Convo extends React.Component {
         </View>
         <View style={{flex: 2, flexDirection: 'row'}}>
           <TextInput
+            autoCorrect={false}
             style={styles.textInput}
             placeholder="Type here to send a message!"
-            onSubmitEditing={(text) => this.setState({text})}
+            onChangeText={(text) => this.setState({ newMsg: text})}
             multiline = {true}
-            numberOfLines = {4} />
+            numberOfLines = {4}
+            value={this.state.newMsg} />
+          <TouchableHighlight onPress={this._addMessage}>
+            <Text>Send</Text>
+          </TouchableHighlight>
         </View>
       </View>
     );
   }
 
   _fetchMessages = () => {
-    fetch('http://localhost:3000/messages', {
+    fetch('http://10.10.43.8:3000/messages', {
       method: 'GET',
       headers: {
         'Accept': 'application/json',
@@ -90,29 +100,39 @@ export default class Convo extends React.Component {
     });
   }
 
-  _addMessage = (message) => {
+  _addMessage = () => {
+    if (this.state.newMsg === '' || this.state.newMsg === null) {
+      return
+    }
+    let youthTranslation;
+    let oldTranslation;
     if (this.props.user.type === 'youth') {
-      translation = 'youth_translation'
-      originalType = 0
+      youthTranslation = this.state.newMsg
+      oldTranslation = null
+      originalType = 'youth'
     } else {
-      translation = 'old_translation'
-      originalType = 1
+      youthTranslation = null
+      oldTranslation = this.state.newMsg
+      originalType = 'old'
     }
 
-    return fetch('http://localhost:3000/messages', {
+    return fetch('http://10.10.43.8:3000/messages', {
       method: 'POST',
-      body: JSON.stringify({
-        message: {
-          translation: message,
-          user_id: this.props.user.id,
-          conversation_id: this.props.convoId,
-          original_type: originalType
-        },
-      })
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json',
+        'youth_translation': youthTranslation,
+        'old_translation': oldTranslation,
+        'username': 'thea',
+        'conversation_id': this.props.convoId,
+        'original_type': originalType,
+      },
     })
     .then((response) => response.json())
     .then((responseJson) => {
-      return this.setState({ messages: this.state.messages.concat(responseJson.message) });
+      console.log('MESSSAGE', responseJson)
+      this.setState({ newMsg: '' })
+      return this._fetchMessages()
     })
     .catch((error) => {
       console.error(error);
