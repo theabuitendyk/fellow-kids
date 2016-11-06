@@ -13,6 +13,10 @@ import {
 import { Message } from '../components/Message';
 
 export default class Convo extends React.Component {
+  componentWillMount() {
+    this.setState({ messages: this._fetchMessages })
+  }
+
   static route = {
     navigationBar: {
       visible: true,
@@ -58,6 +62,50 @@ export default class Convo extends React.Component {
         </ScrollView>
       </View>
     );
+  }
+
+  _fetchMessages = () => {
+    return fetch('localhost:19002/messages', {
+      body: JSON.stringify({
+        conversation_id: this.props.convoId,
+      })
+    })
+    .then((response) => response.json())
+    .then((responseJson) => {
+      return this.setState(messages: responseJson.messages);
+    })
+    .catch((error) => {
+      console.error(error);
+    });
+  }
+
+  _addMessage = (message) => {
+    if (this.props.user.type == 'youth') {
+      translation = 'youth_translation'
+      originalType = 0
+    } else {
+      translation = 'old_translation'
+      originalType = 1
+    }
+
+    return fetch('localhost:19002/messages', {
+      method: 'POST',
+      body: JSON.stringify({
+        message: {
+          translation: message,
+          user_id: this.props.user.id,
+          conversation_id: this.props.convoId,
+          original_type: originalType
+        },
+      })
+    })
+    .then((response) => response.json())
+    .then((responseJson) => {
+      return this.setState({ messages: this.state.messages.concat(responseJson.message) });
+    })
+    .catch((error) => {
+      console.error(error);
+    });
   }
 }
 
