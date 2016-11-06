@@ -78,7 +78,7 @@ export default class ConvoList extends React.Component {
   }
 
   _fetchConvos = () => {
-    fetch('http://localhost:3000/conversations', {
+    fetch('http://10.10.43.8:3000/conversations', {
       method: 'GET',
       headers: {
         'Accept': 'application/json',

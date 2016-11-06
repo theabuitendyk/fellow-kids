@@ -38,9 +38,11 @@ export class Message extends React.Component {
     return (
       <View>
         <View style={messageStyles}>
-          <StyledText style={textStyles}>
-            {translation}
-          </StyledText>
+          <View style={{flexDirection: 'column'}}>
+            <StyledText style={textStyles}>
+              {translation}
+            </StyledText>
+          </View>
         </View>
         <StyledText style={timestampStyles}>
           {this.props.message.username} at {moment(this.props.message.sent_time).format("h:mmA")}
@@ -53,27 +55,27 @@ export class Message extends React.Component {
 const styles = StyleSheet.create({
   myMessage: {
     flex: 1,
-    flexDirection: 'row',
+    flexDirection: 'column',
     backgroundColor: '#2ADB9D',
-    borderRadius: 8,
-    borderBottomLeftRadius: 0,
-    paddingLeft: 20,
-    paddingRight: 20,
-    paddingBottom: 10,
-    paddingTop: 10,
-    marginBottom: 5,
-    marginLeft: 60,
-  },
-  othersMessage: {
-    flex: 1,
-    flexDirection: 'row',
-    backgroundColor: '#B7F5DD',
     borderRadius: 8,
     borderBottomRightRadius: 0,
     paddingLeft: 20,
     paddingRight: 20,
     paddingBottom: 10,
-    paddingTop: 10,
+    paddingTop: 13,
+    marginBottom: 5,
+    marginLeft: 60,
+  },
+  othersMessage: {
+    flex: 1,
+    flexDirection: 'column',
+    backgroundColor: '#B7F5DD',
+    borderRadius: 8,
+    borderBottomLeftRadius: 0,
+    paddingLeft: 20,
+    paddingRight: 20,
+    paddingBottom: 10,
+    paddingTop: 13,
     marginRight: 40,
     marginBottom: 5,
     shadowColor: '#eee',
@@ -102,10 +104,12 @@ const styles = StyleSheet.create({
     color: '#FFF',
     fontWeight: 'bold',
     fontSize: 16,
+    lineHeight: 16,
   },
   othersText: {
     color: '#616161',
     fontWeight: 'bold',
     fontSize: 16,
+    lineHeight: 16,
   },
 })
