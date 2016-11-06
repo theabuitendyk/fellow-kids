@@ -4,6 +4,8 @@ class Message < ApplicationRecord
 
   enum original_type: [ :youth, :old ]
 
+  scope :translated, -> { where.not(old_translation: nil, youth_translation: nil) }
+
   after_save :async_translate, :notify
 
   def async_translate
