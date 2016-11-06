@@ -70,7 +70,7 @@ export default class ConvoList extends React.Component {
   }
 
   _fetchConvos = () => {
-    return fetch('localhost:19002/conversations', {
+    return fetch('localhost:3000/conversations', {
       body: JSON.stringify({
         user_id: this.props.user.id,
       })

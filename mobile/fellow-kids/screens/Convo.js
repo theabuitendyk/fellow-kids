@@ -65,7 +65,7 @@ export default class Convo extends React.Component {
   }
 
   _fetchMessages = () => {
-    return fetch('localhost:19002/messages', {
+    return fetch('localhost:3000/messages', {
       body: JSON.stringify({
         conversation_id: this.props.convoId,
       })
@@ -80,7 +80,7 @@ export default class Convo extends React.Component {
   }
 
   _addMessage = (message) => {
-    if (this.props.user.type == 'youth') {
+    if (this.props.user.type === 'youth') {
       translation = 'youth_translation'
       originalType = 0
     } else {
@@ -88,7 +88,7 @@ export default class Convo extends React.Component {
       originalType = 1
     }
 
-    return fetch('localhost:19002/messages', {
+    return fetch('localhost:3000/messages', {
       method: 'POST',
       body: JSON.stringify({
         message: {
