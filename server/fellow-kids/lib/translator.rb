@@ -16,7 +16,12 @@ class Translator
     return str if @replacement_data.empty?
 
     @replacement_data.each_pair do |key, value|
-      str.gsub!(/\b#{key}\b/i, value)
+      sub_val = if value.is_a?(Array)
+        value.sample
+      else
+        value
+      end
+      str.gsub!(/\b#{key}\b/i, sub_val)
     end
 
     str
