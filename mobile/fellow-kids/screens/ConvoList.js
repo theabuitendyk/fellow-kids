@@ -20,6 +20,8 @@ export default class ConvoList extends React.Component {
   }
 
   render() {
+    const user = { id: 1, type: 'youth' }
+
     const convos = [
       { id: 1,
         name: 'Mom',
@@ -37,6 +39,7 @@ export default class ConvoList extends React.Component {
         time: '10:07PM'
       }
     ]
+
     return (
       <View style={styles.container}>
         <ScrollView
@@ -53,7 +56,7 @@ export default class ConvoList extends React.Component {
 
           <View>
             {convos.map((convo) =>
-              <ConvoListItem key={convo.id} convo={convo}></ConvoListItem>
+              <ConvoListItem key={convo.id} convo={convo} user={user} />
               )
             }
           </View>
