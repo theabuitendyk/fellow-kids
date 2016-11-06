@@ -27,7 +27,7 @@ class Message < ApplicationRecord
   def translate!
     if old_translation.present? && youth_translation.blank?
       translate_old!
-    else youth_translation.present? && old_translation.blank?
+    elsif youth_translation.present? && old_translation.blank?
       translate_youth!
     end
   end
