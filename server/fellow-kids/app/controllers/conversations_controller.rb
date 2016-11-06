@@ -1,9 +1,6 @@
 class ConversationsController < ApplicationController
-  respond_to :json
-
   def index
     @conversations = current_user.conversations
-
     render json: @conversations, each_serializer: conversation_serializer, root: "conversations"
   end
 
@@ -21,5 +18,4 @@ class ConversationsController < ApplicationController
   def conversation_serializer
     ConversationSerializer
   end
-
 end

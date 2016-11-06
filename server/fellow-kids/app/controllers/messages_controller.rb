@@ -1,8 +1,6 @@
 class MessagesController < ApplicationController
-  respond_to :json
-
   def index
-    conversation = Conversation.find_by(id: params[:conversation_id])
+    conversation = Conversation.find_by(id: request.headers["HTTP_CONVERSATION_ID"])
     @messages = conversation.messages
 
     render json: @messages, each_serializer: message_serializer, root: "messages"

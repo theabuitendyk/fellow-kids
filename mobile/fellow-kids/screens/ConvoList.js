@@ -13,8 +13,9 @@ import {
 import { ConvoListItem } from '../components/ConvoListItem';
 
 export default class ConvoList extends React.Component {
+  state = {}
   componentWillMount() {
-    this.setState({ convos: this._fetchConvos })
+    this._fetchConvos()
   }
 
   static route = {
@@ -24,7 +25,7 @@ export default class ConvoList extends React.Component {
   }
 
   render() {
-    const user = { id: 1, type: 'youth' }
+    const user = { id: 1, type: 'youth', username: 'thea' }
 
     const convos = [
       { id: 1,
@@ -44,6 +45,13 @@ export default class ConvoList extends React.Component {
       }
     ]
 
+    let convos_array;
+    if (this.state.convos && this.state.convos.length > 0) {
+      convos_array = this.state.convos
+    } else {
+      convos_array = []
+    }
+
     return (
       <View style={styles.container}>
         <ScrollView
@@ -59,7 +67,7 @@ export default class ConvoList extends React.Component {
 
 
           <View>
-            {convos.map((convo) =>
+            {convos_array.map((convo) =>
               <ConvoListItem key={convo.id} convo={convo} user={user} />
               )
             }
@@ -70,14 +78,18 @@ export default class ConvoList extends React.Component {
   }
 
   _fetchConvos = () => {
-    return fetch('localhost:3000/conversations', {
-      body: JSON.stringify({
-        user_id: this.props.user.id,
-      })
+    fetch('http://localhost:3000/conversations', {
+      method: 'GET',
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json',
+        'username': 'thea',
+      },
     })
     .then((response) => response.json())
     .then((responseJson) => {
-      return this.setState({ convos: responseJson.conversations });
+      console.log('WTF', responseJson)
+      return this.setState({ convos: responseJson });
     })
     .catch((error) => {
       console.error(error);
