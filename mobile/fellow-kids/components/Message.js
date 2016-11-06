@@ -10,6 +10,7 @@ import {
 } from 'exponent';
 
 import { StyledText } from '../components/StyledText';
+import moment from 'moment';
 
 export class Message extends React.Component {
   render() {
@@ -33,9 +34,14 @@ export class Message extends React.Component {
     }
 
     return (
-      <View style={messageStyles}>
-        <StyledText style={textStyles}>
-          {translation}
+      <View>
+        <View style={messageStyles}>
+          <StyledText style={textStyles}>
+            {translation}
+          </StyledText>
+        </View>
+        <StyledText style={styles.timestampStyles}>
+          {moment(this.props.message.sent_time).format("MMM D HH:mmA")}
         </StyledText>
       </View>
     );
@@ -53,7 +59,7 @@ const styles = StyleSheet.create({
     paddingRight: 20,
     paddingBottom: 10,
     paddingTop: 10,
-    marginBottom: 15,
+    marginBottom: 5,
     marginLeft: 60,
   },
   othersMessage: {
@@ -66,12 +72,20 @@ const styles = StyleSheet.create({
     paddingRight: 20,
     paddingBottom: 10,
     paddingTop: 10,
-    marginBottom: 15,
     marginRight: 40,
+    marginBottom: 5,
     shadowColor: '#eee',
     shadowOpacity: 100,
     shadowRadius: 2,
     shadowOffset: { width: 1, height: 2 },
+  },
+  timestampStyles: {
+    flex: 1,
+    flexDirection: 'row',
+    color: '#616161',
+    fontSize: 10,
+    alignItems: 'flex-end',
+    marginBottom: 15,
   },
   myText: {
     color: '#FFF',

@@ -77,8 +77,14 @@ const styles = StyleSheet.create({
     marginBottom: 20,
   },
   welcomeImage: {
-    width: 181,
-    height: 97,
+    width: 239,
+    height: 93,
     marginTop: 3,
+    marginLeft: 15,
+    shadowColor: '#e0e0e0',
+    shadowOpacity: 20,
+    shadowRadius: 2,
+    shadowOffset: { width: 2, height: 2 },
+    padding: 10,
   },
 });
