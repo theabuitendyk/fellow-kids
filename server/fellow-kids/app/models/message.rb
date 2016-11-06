@@ -4,12 +4,19 @@ class Message < ApplicationRecord
 
   enum original_type: [ :youth, :old ]
 
-  after_save :async_translate
+  after_save :async_translate, :notify
 
   def async_translate
     return if old_translation.present? && youth_translation.present?
 
     TranslationWorker.call(id)
+  end
+
+  def notify
+    if old_translation.present? && youth_translation.present? &&
+      (old_translation_was.blank? || youth_translation_was.blank?)
+      PubnubHelper.publish(conversation.pubsub_channel, MessageSerializer.new(self).attributes)
+    end
   end
 
   def translate_old!

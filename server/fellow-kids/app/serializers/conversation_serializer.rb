@@ -1,5 +1,5 @@
 class ConversationSerializer < ActiveModel::Serializer
-  attributes :id, :last_message
+  attributes :id, :last_message, :pubsub_channel
 
   has_many :users
 

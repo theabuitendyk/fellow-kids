@@ -3,14 +3,14 @@
 
 # Users
 
-thea = User.create(name: 'Thea', username: 'thea', birth_year: 1994, password: 'testtest')
-les = User.create(name: 'Les', username: 'les', birth_year: 1982, password: 'testtest')
-galina = User.create(name: 'Galina', username: 'galina', birth_year: 1989, password: 'testtest')
+thea = User.create(name: 'Thea', username: 'thea', birth_year: 1994)
+les = User.create(name: 'Les', username: 'les', birth_year: 1982)
+galina = User.create(name: 'Galina', username: 'galina', birth_year: 1989)
 
-owen = User.create(name: 'Owen', username: 'owen', birth_year: 1997, password: 'testtest')
-timmy = User.create(name: 'Timmy', username: 'timmy', birth_year: 2002, password: 'testtest')
-tiffany = User.create(name: 'Tiffany', username: 'tiffany', birth_year: 2002, password: 'testtest')
-grandpa_joe = User.create(name: 'Gandpa Joe', username: 'grandpa_joe', birth_year: 1943, password: 'testtest')
+owen = User.create(name: 'Owen', username: 'owen', birth_year: 1997)
+timmy = User.create(name: 'Timmy', username: 'timmy', birth_year: 2002)
+tiffany = User.create(name: 'Tiffany', username: 'tiffany', birth_year: 2002)
+grandpa_joe = User.create(name: 'Grandpa Joe', username: 'grandpa_joe', birth_year: 1943)
 
 # Conversations
 
